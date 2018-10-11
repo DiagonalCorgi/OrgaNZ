@@ -68,7 +68,7 @@ public final class MultitouchHandler {
         root.addEventFilter(TouchEvent.ANY, MultitouchHandler::handleTouchEvent);
 
         root.addEventFilter(MouseEvent.ANY, event -> {
-            if (event.isSynthesized()) {
+            if (handlingTouch && event.isSynthesized()) {
                 Node node = (Node) event.getTarget();
                 while (!Objects.equals(node, rootPane) && node != null) {
                     if (node instanceof Skinnable) {
