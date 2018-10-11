@@ -381,7 +381,16 @@ public class MenuBarController extends SubController {
                             .getParent().toString())
             );
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
-            File file = fileChooser.showSaveDialog(mainController.getStage());
+
+            File file = null;
+            switch (State.getUiType()) {
+                case STANDARD:
+                    file = fileChooser.showSaveDialog(mainController.getStage());
+                    break;
+                case TOUCH:
+                    file = fileChooser.showSaveDialog(State.getPrimaryStage());
+            }
+
             if (file != null) {
                 try (FileOutputStream output = new FileOutputStream(file)) {
                     output.write(State.getFileResolver().exportClients());
@@ -414,7 +423,16 @@ public class MenuBarController extends SubController {
                             .getParent().toString())
             );
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
-            File file = fileChooser.showSaveDialog(mainController.getStage());
+
+            File file = null;
+            switch (State.getUiType()) {
+                case STANDARD:
+                    file = fileChooser.showSaveDialog(mainController.getStage());
+                    break;
+                case TOUCH:
+                    file = fileChooser.showSaveDialog(State.getPrimaryStage());
+            }
+
             if (file != null) {
                 try (FileOutputStream output = new FileOutputStream(file)) {
                     output.write(State.getFileResolver().exportClinicians());
@@ -461,7 +479,15 @@ public class MenuBarController extends SubController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(
                 "JSON/CSV files (*.json, *.csv)",
                 "*.json", "*.csv"));
-        File file = fileChooser.showOpenDialog(State.getPrimaryStage());
+
+        File file = null;
+        switch (State.getUiType()) {
+            case STANDARD:
+                file = fileChooser.showOpenDialog(mainController.getStage());
+                break;
+            case TOUCH:
+                file = fileChooser.showOpenDialog(State.getPrimaryStage());
+        }
 
         if (file != null) {
             String format = getFileExtension(file.getName());
