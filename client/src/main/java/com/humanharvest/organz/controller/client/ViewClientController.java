@@ -516,7 +516,14 @@ public class ViewClientController extends SubController {
                 new ExtensionFilter("PNG files (*.png)", "*.png") // Restricting only this file type.
         );
 
-        File selectedFile = fileChooser.showOpenDialog(State.getPrimaryStage());
+        File selectedFile = null;
+        switch (State.getUiType()) {
+            case STANDARD:
+                selectedFile = fileChooser.showOpenDialog(mainController.getStage());
+                break;
+            case TOUCH:
+                selectedFile = fileChooser.showOpenDialog(State.getPrimaryStage());
+        }
         MultitouchHandler.handleTouch(true);
 
         if (selectedFile != null) {

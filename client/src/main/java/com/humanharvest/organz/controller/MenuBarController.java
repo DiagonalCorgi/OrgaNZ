@@ -383,7 +383,15 @@ public class MenuBarController extends SubController {
                             .getParent().toString())
             );
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
-            File file = fileChooser.showSaveDialog(mainController.getStage());
+
+            File file = null;
+            switch (State.getUiType()) {
+                case STANDARD:
+                    file = fileChooser.showSaveDialog(mainController.getStage());
+                    break;
+                case TOUCH:
+                    file = fileChooser.showSaveDialog(State.getPrimaryStage());
+            }
             MultitouchHandler.handleTouch(true);
 
             if (file != null) {
@@ -419,7 +427,15 @@ public class MenuBarController extends SubController {
                             .getParent().toString())
             );
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
-            File file = fileChooser.showSaveDialog(mainController.getStage());
+
+            File file = null;
+            switch (State.getUiType()) {
+                case STANDARD:
+                    file = fileChooser.showSaveDialog(mainController.getStage());
+                    break;
+                case TOUCH:
+                    file = fileChooser.showSaveDialog(State.getPrimaryStage());
+            }
             MultitouchHandler.handleTouch(true);
 
             if (file != null) {
@@ -469,7 +485,15 @@ public class MenuBarController extends SubController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(
                 "JSON/CSV files (*.json, *.csv)",
                 "*.json", "*.csv"));
-        File file = fileChooser.showOpenDialog(State.getPrimaryStage());
+
+        File file = null;
+        switch (State.getUiType()) {
+            case STANDARD:
+                file = fileChooser.showOpenDialog(mainController.getStage());
+                break;
+            case TOUCH:
+                file = fileChooser.showOpenDialog(State.getPrimaryStage());
+        }
         MultitouchHandler.handleTouch(true);
 
         if (file != null) {
